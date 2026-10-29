@@ -149,3 +149,16 @@ themeToggle.addEventListener('click',()=>{
   applyTheme(theme);
   try{localStorage.setItem('ramalc-theme',theme)}catch{}
 });
+
+const donationFloat=document.querySelector('.donation-float');
+const floatToggle=donationFloat.querySelector('.float-toggle');
+floatToggle.addEventListener('click',()=>{
+  const collapsed=donationFloat.classList.toggle('is-collapsed');
+  document.body.classList.toggle('qr-minimized',collapsed);
+  donationFloat.querySelector('.float-qr').hidden=collapsed;
+  donationFloat.querySelector('.float-action').hidden=collapsed;
+  floatToggle.setAttribute('aria-expanded',String(!collapsed));
+  floatToggle.setAttribute('aria-label',collapsed?'Mostrar código QR':'Minimizar código QR');
+  floatToggle.querySelector('span').textContent=collapsed?'＋':'−';
+  document.dispatchEvent(new Event('ramalc:layout'));
+});

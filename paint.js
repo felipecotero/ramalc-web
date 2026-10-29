@@ -1,7 +1,7 @@
 // Decorative paper and brush work stays separate from source text and images.
 (() => {
   const ns='http://www.w3.org/2000/svg';
-  const selectors='.sur-mosaic,.inner-masthead,.format-mosaic,.constructive-archive,.edition-navigation,.edition-feature,.network-strip,.home-news,.media-home,.article-layout,.contact-layout,.red-layout,.encuentro-layout,.campaign-strip,.edition-archive>.wp-block-columns';
+  const selectors='.sur-mosaic,.inner-masthead,.format-mosaic,.constructive-archive,.edition-navigation,.edition-feature,.network-strip,.home-news,.media-home,.article-layout,.contact-layout,.red-layout,.encuentro-layout,.campaign-strip,.edition-archive>.wp-block-columns,.donation-float';
   let pending=0;
   let symbolNumber=0;
   const observed=new WeakSet();
