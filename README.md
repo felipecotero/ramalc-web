@@ -1,6 +1,6 @@
 # RAMALC — propuesta de renovación
 
-Primera propuesta navegable para la Red Antimilitarista de América Latina y el Caribe. La composición recoge la retícula constructiva, los colores del logo y la orientación «Nuestro norte es el sur».
+Primera propuesta navegable para la Red Antimilitarista de América Latina y el Caribe. La composición recoge una retícula constructiva de módulos desiguales, símbolos vectoriales integrados y la orientación «Nuestro norte es el sur». La paleta usa verde bosque, salvia, berenjena, terracota y papel; las imágenes originales conservan sus colores. El mapa invertido protagoniza la portada.
 
 La campaña Encuentro Regional RAMALC 2026 ocupa la portada y enlaza directamente a WhyDonate.
 
