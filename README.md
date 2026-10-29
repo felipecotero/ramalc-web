@@ -4,6 +4,10 @@ Primera propuesta navegable para la Red Antimilitarista de América Latina y el 
 
 La campaña Encuentro Regional RAMALC 2026 ocupa la portada y enlaza directamente a WhyDonate.
 
+El logo mantiene su proporción original y dispone de 310 px en escritorio y hasta 290 px en celular; en pantallas intermedias se adapta al espacio disponible. Los controles del encabezado tienen una fila propia en móvil.
+
+Los fondos incorporan una textura de papel vectorial, con tonos más saturados y luminosos. Las divisiones principales miden 9 px, tres veces los 3 px anteriores. `paint.js` dibuja bordes irregulares sobre la retícula y los vuelve a ajustar al cambiar el tamaño de pantalla o los filtros; las fotografías y afiches se mantienen intactos.
+
 Las secciones internas comparten módulos de proporciones desiguales, símbolos por formato y una cabecera con el mapa del sur. Multimedia permite filtrar videos, audios y fotografías. Las páginas de lectura conservan el texto completo en una superficie continua.
 
 El modo nocturno utiliza el logo negativo de RAMALC aportado por el usuario, sin modificar el archivo original; el modo claro conserva el logo publicado en el sitio.

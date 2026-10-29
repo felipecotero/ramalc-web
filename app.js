@@ -75,6 +75,7 @@ function archive(route){
     resultsEl.innerHTML=results.length?results.slice(0,limit).map(p=>card(p,{format:true,constructive:true})).join(''):'<p class="empty">No se encontraron publicaciones.</p>';
     document.querySelectorAll('[data-format]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.format===filter)));
     document.querySelector('#more').hidden=results.length<=limit;
+    document.dispatchEvent(new Event('ramalc:layout'));
   };
   document.querySelector('#search').addEventListener('input',()=>{limit=12;render()});
   document.querySelector('#filter').addEventListener('change',()=>{limit=12;render()});
@@ -119,6 +120,7 @@ function route(){
   else notFound();
   document.title=(main.querySelector('h1')?.innerText.replace(/\s+/g,' ').trim()||'Nuestro norte es el sur')+' — RAMALC';
   window.scrollTo(0,0);
+  document.dispatchEvent(new Event('ramalc:layout'));
 }
 document.querySelector('.menu-toggle').addEventListener('click',e=>{const b=e.currentTarget;const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));document.querySelector('nav').classList.toggle('open',open)});
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();main.focus();main.scrollIntoView()});
@@ -136,6 +138,7 @@ function applyTheme(theme){
   themeToggle.setAttribute('aria-label',dark?'Activar modo claro':'Activar modo nocturno');
   themeToggle.title=dark?'Activar modo claro':'Activar modo nocturno';
   themeToggle.querySelector('span').textContent=dark?'☼':'☾';
+  document.dispatchEvent(new Event('ramalc:layout'));
 }
 let storedTheme;
 try{storedTheme=localStorage.getItem('ramalc-theme')}catch{}
