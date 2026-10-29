@@ -4,6 +4,10 @@ Primera propuesta navegable para la Red Antimilitarista de América Latina y el 
 
 La campaña Encuentro Regional RAMALC 2026 ocupa la portada y enlaza directamente a WhyDonate.
 
+Las secciones internas comparten módulos de proporciones desiguales, símbolos por formato y una cabecera con el mapa del sur. Multimedia permite filtrar videos, audios y fotografías. Las páginas de lectura conservan el texto completo en una superficie continua.
+
+El modo nocturno se activa por defecto. El botón de sol/luna alterna los modos claro y nocturno y guarda la preferencia en el navegador.
+
 ## Contenido
 
 - 127 publicaciones recuperadas de la interfaz pública de ramalc.org.
