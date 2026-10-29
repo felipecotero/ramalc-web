@@ -12,7 +12,7 @@ La campaña Encuentro Regional RAMALC 2026 ocupa la portada y enlaza directament
 - Textos y fragmentos del sitio original, con enlaces de procedencia.
 - Imágenes originales guardadas en `assets/`; correspondencias en `sources-assets.json`.
 
-Los contenidos se conservan como documentos publicados por RAMALC. Las fechas, afirmaciones históricas, contactos y enlaces proceden del sitio y no implican una actualización editorial de sus fuentes. Tres imágenes históricas no pudieron recuperarse. Los audios, videos, documentos y la campaña requieren conexión y conservan sus enlaces externos.
+Los contenidos se conservan como documentos publicados por RAMALC. Las fechas, afirmaciones históricas, contactos y enlaces proceden del sitio y no implican una actualización editorial de sus fuentes. Cinco imágenes históricas no pudieron recuperarse. Los audios, videos, documentos y la campaña requieren conexión y conservan sus enlaces externos.
 
 La página original de Contacto devolvía una página inexistente. Esta propuesta reúne el correo y los enlaces publicados en otras páginas de RAMALC.
 
