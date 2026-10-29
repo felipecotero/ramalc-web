@@ -3,6 +3,7 @@
   const ns='http://www.w3.org/2000/svg';
   const selectors='.sur-mosaic,.inner-masthead,.format-mosaic,.constructive-archive,.edition-navigation,.edition-feature,.network-strip,.home-news,.media-home,.article-layout,.contact-layout,.red-layout,.encuentro-layout,.campaign-strip,.edition-archive>.wp-block-columns';
   let pending=0;
+  let symbolNumber=0;
   const observed=new WeakSet();
   const observer=new ResizeObserver(schedule);
   function schedule(){
@@ -24,7 +25,84 @@
     }
     return 'M'+top.concat(bottom).map(p=>p.map(v=>v.toFixed(2)).join(',')).join('L')+'Z';
   }
+  function svgNode(tag,attributes={}){
+    const node=document.createElementNS(ns,tag);
+    for(const [name,value] of Object.entries(attributes))node.setAttribute(name,String(value));
+    return node;
+  }
+  // Sample the existing geometry rather than replace the symbol vocabulary.
+  function brushContour(geometry,seed){
+    const length=geometry.getTotalLength();
+    if(length<.1)return null;
+    const first=geometry.getPointAtLength(0),last=geometry.getPointAtLength(length);
+    const closed=Math.hypot(first.x-last.x,first.y-last.y)<.3;
+    const steps=Math.max(8,Math.ceil(length/2.2));
+    const top=[],bottom=[],grain=[];
+    const coordinate=(x,y)=>x.toFixed(2)+','+y.toFixed(2);
+    for(let i=0;i<=steps;i++){
+      const distance=length*i/steps;
+      const sample=closed&&i===steps?0:i;
+      const at=geometry.getPointAtLength(distance);
+      const before=geometry.getPointAtLength(closed?(distance-.3+length)%length:Math.max(0,distance-.3));
+      const after=geometry.getPointAtLength(closed?(distance+.3)%length:Math.min(length,distance+.3));
+      const norm=Math.hypot(after.x-before.x,after.y-before.y)||1;
+      const nx=-(after.y-before.y)/norm,ny=(after.x-before.x)/norm;
+      const envelope=closed?1:Math.sin(Math.PI*i/steps);
+      const drift=(Math.sin(sample*.31+seed)*.55+Math.sin(sample*.83+seed*2)*.24)*envelope;
+      const pressure=3.2+Math.sin(sample*.27+seed)*.48+Math.cos(sample*.69+seed)*.23;
+      const edgeA=Math.sin(sample*1.87+seed)*.26;
+      const edgeB=Math.cos(sample*1.51+seed)*.29;
+      top.push(coordinate(at.x+nx*(pressure+drift+edgeA),at.y+ny*(pressure+drift+edgeA)));
+      bottom.unshift(coordinate(at.x-nx*(pressure-drift+edgeB),at.y-ny*(pressure-drift+edgeB)));
+      // Dry brush fibres follow the stroke and reveal the colored paper below.
+      if(i>1&&i<steps-1&&i%5===2){
+        const offset=Math.sin(i*.67+seed)*1.9;
+        const x=at.x+nx*offset,y=at.y+ny*offset;
+        const tx=ny,ty=-nx;
+        const fibre=1.3+Math.abs(Math.sin(i+seed))*2;
+        grain.push('M'+coordinate(x,y)+'l'+coordinate(tx*fibre,ty*fibre));
+      }
+    }
+    return {outline:'M'+top.join('L')+'L'+bottom.join('L')+'Z',grain:grain.join('')};
+  }
+  function paintSymbols(){
+    for(const symbol of document.querySelectorAll('.constructive-sign:not([data-hand-painted])')){
+      const source=symbol.querySelector('.symbol-source');
+      if(!source)continue;
+      const temp=svgNode('g',{'aria-hidden':'true',opacity:0});
+      const outlines=[],fibres=[];
+      const seed=[...(symbol.dataset.symbol||'seed')].reduce((n,c)=>n+c.charCodeAt(0),0);
+      symbol.append(temp);
+      try{
+        let part=0;
+        for(const original of source.querySelectorAll('path,circle,rect')){
+          const geometries=original.tagName.toLowerCase()==='path'
+            ?(original.getAttribute('d').match(/[Mm][^Mm]*/g)||[]).map(d=>svgNode('path',{d}))
+            :[original.cloneNode(true)];
+          for(const geometry of geometries){
+            temp.append(geometry);
+            const stroke=brushContour(geometry,seed+part++*1.73);
+            if(stroke){outlines.push(stroke.outline);fibres.push(stroke.grain)}
+          }
+        }
+        if(outlines.length){
+          const id='ramalc-symbol-paper-'+(++symbolNumber);
+          const defs=svgNode('defs'),mask=svgNode('mask',{id,maskUnits:'userSpaceOnUse',x:-6,y:-6,width:112,height:112});
+          mask.append(svgNode('rect',{x:-6,y:-6,width:112,height:112,fill:'#fff'}));
+          mask.append(svgNode('path',{d:fibres.join(''),fill:'none',stroke:'#000','stroke-opacity':.38,'stroke-width':.7,'stroke-linecap':'round'}));
+          defs.append(mask);
+          const ink=svgNode('g',{class:'symbol-ink',fill:'currentColor',stroke:'none',mask:'url(#'+id+')'});
+          for(const d of outlines)ink.append(svgNode('path',{d}));
+          symbol.append(defs,ink);
+          symbol.setAttribute('data-hand-painted','true');
+        }
+      }catch{
+        // Retain the original SVG if geometry measurement is unavailable.
+      }finally{temp.remove()}
+    }
+  }
   function paint(){
+    paintSymbols();
     for(const surface of document.querySelectorAll(selectors)){
       surface.classList.add('brush-surface');
       if(!observed.has(surface)){observer.observe(surface);observed.add(surface)}

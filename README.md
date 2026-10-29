@@ -8,6 +8,8 @@ El logo mantiene su proporción original y dispone de 310 px en escritorio y has
 
 Los fondos incorporan una textura de papel vectorial, con tonos más saturados y luminosos. Las divisiones principales miden 9 px, tres veces los 3 px anteriores. `paint.js` dibuja bordes irregulares sobre la retícula y los vuelve a ajustar al cambiar el tamaño de pantalla o los filtros; las fotografías y afiches se mantienen intactos.
 
+Los símbolos conservan sus formas originales y se dibujan con grosor variable, bordes irregulares y pequeñas marcas de pincel seco que dejan ver el fondo. Este acabado se aplica en portada, secciones, fichas y controles, incluidos el sol y la luna del cambio de modo.
+
 Las secciones internas comparten módulos de proporciones desiguales, símbolos por formato y una cabecera con el mapa del sur. Multimedia permite filtrar videos, audios y fotografías. Las páginas de lectura conservan el texto completo en una superficie continua.
 
 El modo nocturno utiliza el logo negativo de RAMALC aportado por el usuario, sin modificar el archivo original; el modo claro conserva el logo publicado en el sitio.

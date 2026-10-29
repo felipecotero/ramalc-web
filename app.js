@@ -27,9 +27,10 @@ const sign = (kind) => {
     book: '<path d="M50 82V23Q32 9 10 17v57q22-8 40 8Zm0 0V23q18-14 40-6v57q-22-8-40 8Z"/><path d="M22 32l16 4M22 46l16 4M63 36l15-4M63 50l15-4"/>',
     compass: '<path d="M50 9v82M9 50h82M50 9l-8 14M50 9l8 14M50 91l-8-14M50 91l8-14"/><circle cx="50" cy="50" r="14"/>',
     video: '<rect x="9" y="19" width="82" height="62"/><path d="m41 33 26 17-26 17Z"/>',
-    frame: '<rect x="9" y="13" width="82" height="74"/><circle cx="68" cy="34" r="8"/><path d="m10 74 24-30 25 30 12-17 20 22"/>'
+    frame: '<rect x="9" y="13" width="82" height="74"/><circle cx="68" cy="34" r="8"/><path d="m10 74 24-30 25 30 12-17 20 22"/>',
+    moon: '<path d="M72 13C41 8 18 29 18 52s23 43 52 35C43 80 35 61 39 43c3-15 15-24 33-30Z"/>'
   };
-  return `<svg class="constructive-sign" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${shapes[kind]||shapes.seed}</svg>`;
+  return `<svg class="constructive-sign" data-symbol="${kind}" viewBox="0 0 100 100" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><g class="symbol-source">${shapes[kind]||shapes.seed}</g></svg>`;
 };
 function home(){
   const meet=post(1701);
@@ -137,7 +138,7 @@ function applyTheme(theme){
   themeToggle.setAttribute('aria-pressed',String(dark));
   themeToggle.setAttribute('aria-label',dark?'Activar modo claro':'Activar modo nocturno');
   themeToggle.title=dark?'Activar modo claro':'Activar modo nocturno';
-  themeToggle.querySelector('span').textContent=dark?'☼':'☾';
+  themeToggle.querySelector('span').innerHTML=sign(dark?'sun':'moon');
   document.dispatchEvent(new Event('ramalc:layout'));
 }
 let storedTheme;
