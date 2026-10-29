@@ -6,6 +6,8 @@ La campaña Encuentro Regional RAMALC 2026 ocupa la portada y enlaza directament
 
 Las secciones internas comparten módulos de proporciones desiguales, símbolos por formato y una cabecera con el mapa del sur. Multimedia permite filtrar videos, audios y fotografías. Las páginas de lectura conservan el texto completo en una superficie continua.
 
+El modo nocturno utiliza el logo negativo de RAMALC aportado por el usuario, sin modificar el archivo original; el modo claro conserva el logo publicado en el sitio.
+
 El modo nocturno se activa por defecto. El botón de sol/luna alterna los modos claro y nocturno y guarda la preferencia en el navegador.
 
 ## Contenido

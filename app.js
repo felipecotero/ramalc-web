@@ -123,12 +123,15 @@ function route(){
 document.querySelector('.menu-toggle').addEventListener('click',e=>{const b=e.currentTarget;const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));document.querySelector('nav').classList.toggle('open',open)});
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();main.focus();main.scrollIntoView()});
 document.addEventListener('error',e=>{if(e.target.tagName==='IMG')e.target.classList.add('image-error')},true);
-fetch('data.json').then(r=>{if(!r.ok)throw Error('Datos no disponibles');return r.json()}).then(data=>{DATA=data;document.querySelector('#logo').src=DATA.logo;const search=document.createElement('a');search.href='#/buscar';search.textContent='Buscar';document.querySelector('nav').append(search);window.addEventListener('hashchange',route);route()}).catch(()=>{main.innerHTML='<div class="wrapper"><p class="empty">No se pudo cargar el archivo. <a href="https://ramalc.org/">Visitar ramalc.org ↗</a></p></div>'});
+fetch('data.json').then(r=>{if(!r.ok)throw Error('Datos no disponibles');return r.json()}).then(data=>{DATA=data;applyTheme(document.body.classList.contains('night-mode')?'dark':'light');const search=document.createElement('a');search.href='#/buscar';search.textContent='Buscar';document.querySelector('nav').append(search);window.addEventListener('hashchange',route);route()}).catch(()=>{main.innerHTML='<div class="wrapper"><p class="empty">No se pudo cargar el archivo. <a href="https://ramalc.org/">Visitar ramalc.org ↗</a></p></div>'});
 
 const themeToggle=document.querySelector('#theme-toggle');
 function applyTheme(theme){
   const dark=theme==='dark';
   document.body.classList.toggle('night-mode',dark);
+  const logo=document.querySelector('#logo');
+  if(dark)logo.src='assets/logo-ramalc-negativo-2019.png';
+  else if(DATA)logo.src=DATA.logo;
   themeToggle.setAttribute('aria-pressed',String(dark));
   themeToggle.setAttribute('aria-label',dark?'Activar modo claro':'Activar modo nocturno');
   themeToggle.title=dark?'Activar modo claro':'Activar modo nocturno';
